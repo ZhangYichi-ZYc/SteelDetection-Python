@@ -4,8 +4,17 @@ import cv2
 import numpy as np
 from ultralytics import YOLO
 import Config
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 允许所有域名
+    allow_credentials=True,
+    allow_methods=["*"],  # 允许所有 HTTP 方法
+    allow_headers=["*"],  # 允许所有请求头
+)
 
 # 加载训练好的模型
 model = YOLO(Config.model_path, task='detect')
